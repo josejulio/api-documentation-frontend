@@ -6,6 +6,7 @@ import { OpenAPIV3 } from "openapi-types";
 import APIConfigurationIcons from "./APIConfigurationIcons";
 
 export interface APIConfiguration {
+  id: string;
   displayName: string;
   icon: keyof typeof APIConfigurationIcons;
   description: string;
@@ -14,6 +15,7 @@ export interface APIConfiguration {
 
 export const apiConfigurations: Array<APIConfiguration> = [
   {
+    id: "insights",
     displayName: "Advisor",
     description: "The API of the Advisor project in Insights",
     icon: "InsightsIcon",
@@ -23,6 +25,7 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "cost-management",
     displayName: "Cost Management",
     description:
       "The API for Project Koku and OpenShift cost management. You can find out more about Project Koku at https://github.com/project-koku",
@@ -33,6 +36,7 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "drift",
     displayName: "Drift Backend Service",
     description: "Service that returns differences between systems.",
     icon: "GenericIcon",
@@ -42,6 +46,7 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "system-baseline",
     displayName: "Drift Baseline",
     description: "Service that returns system baselines",
     icon: "GenericIcon",
@@ -51,6 +56,7 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "historical-system-profiles",
     displayName: "Drift Historical Systems Profile Service ",
     description: "Service that returns system baselines",
     icon: "GenericIcon",
@@ -60,6 +66,7 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "image-builder",
     displayName: "Image Builder",
     description: "Service that relays image build requests",
     icon: "InsightsIcon",
@@ -69,6 +76,7 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "integrations",
     displayName: "Integrations",
     description: "The API for Integrations",
     icon: "GenericIcon",
@@ -78,6 +86,7 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "inventory",
     displayName: "Managed Inventory",
     description:
       "REST interface for the Insights Platform Host Inventory application",
@@ -88,6 +97,7 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "notifications",
     displayName: "Notifications",
     description: "The API for Notifications",
     icon: "GenericIcon",
@@ -97,6 +107,7 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "gathering",
     displayName: "Operator Gathering Conditions Service",
     description: "Gathering Conditions Services to Insights Operator",
     icon: "GenericIcon",
@@ -106,6 +117,7 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "insights-results-aggregator",
     displayName: "Results Aggregator",
     description:
       "Aggregation service for the results of running Insights rules",
@@ -116,6 +128,7 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "patch",
     displayName: "Patch",
     description: "API of the Patch application on console.redhat.com",
     icon: "InsightsIcon",
@@ -125,6 +138,7 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "playbook-dispatcher",
     displayName: "Playbook Dispatcher",
     description:
       "Playbook Dispatcher is a service for running Ansible Playbooks on hosts connected via Cloud Connector",
@@ -135,6 +149,7 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "policies",
     displayName: "Policies",
     description: "The API for Policies",
     icon: "GenericIcon",
@@ -144,6 +159,7 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "config-manager",
     displayName: "Red Hat Connector",
     description: "Config manager service",
     icon: "GenericIcon",
@@ -153,6 +169,7 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "remediations",
     displayName: "Remediations",
     description: "Insights Remediations Service",
     icon: "GenericIcon",
@@ -162,6 +179,7 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "ros",
     displayName: "Resource Optimization",
     description: "Flask Backend API for Resource Optimization Service",
     icon: "InsightsIcon",
@@ -171,6 +189,7 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "edge",
     displayName: "RHEL for Edge",
     description: "RHEL for Edge API",
     icon: "EdgeIcon",
@@ -180,6 +199,7 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "rbac",
     displayName: "Role-based Access Control",
     description: "The API for Role Based Access Control",
     icon: "GenericIcon",
@@ -189,6 +209,7 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "sources",
     displayName: "Sources",
     description: "Sources API",
     icon: "GenericIcon",
@@ -198,6 +219,7 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "rhsm-subscriptions",
     displayName: "Subscriptions",
     description:
       "REST interface for the rhsm-subscriptions service. Please note any deprecated APIs. Our current deprecation policy is to keep deprecated APIs around for at least 6 months",
@@ -208,6 +230,7 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "vulnerability",
     displayName: "Vulnerability Management",
     description: "Vulnerability API",
     icon: "GenericIcon",
@@ -217,6 +240,7 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "accounts-management-service",
     displayName: "Account Management Service",
     description: "Manage user subscriptions and clusters",
     icon: "GenericIcon",
@@ -226,6 +250,7 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "authorization-service",
     displayName: "Authorization Service",
     description: "Enables access control on resources of OCM services",
     icon: "OpenShiftIcon",
@@ -235,6 +260,7 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "connector-management",
     displayName: "Connector Management",
     description: "Connector Management API is a REST API to manage connectors.",
     icon: "GenericIcon",
@@ -244,6 +270,7 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "kafka-service-fleet-manager-service",
     displayName: "Kafka Service Fleet Manager Service",
     description: "Kafka Management API is a REST API to manage Kafka instances",
     icon: "GenericIcon",
@@ -253,6 +280,7 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "rhacs-service-fleet-manager",
     displayName: "RHACS Service Fleet Manager",
     description:
       "Red Hat Advanced Cluster Security (RHACS) Service Fleet Manager is a Rest API to manage instances of ACS components.",
@@ -263,6 +291,7 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "service-logs",
     displayName: "Service Logs",
     description:
       "Receives and maintains logs from internal sources related to OpenShift clusters.",
@@ -273,6 +302,7 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "service-registry-management",
     displayName: "Service Registry Management",
     description:
       "Service Registry Management API is a REST API for managing Service Registry instances. Service Registry is a datastore for event schemas and API designs, which is based on the open source Apicurio Registry project",
@@ -283,6 +313,7 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "upgrades-information-service",
     displayName: "Upgrades Information Service",
     description: "Upgrades Information Service API",
     icon: "GenericIcon",
@@ -292,6 +323,7 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "web-rca-service",
     displayName: "Web-RCA Service",
     description: "Web-RCA Service API",
     icon: "GenericIcon",

@@ -6,6 +6,7 @@ import {OpenAPIV3} from "openapi-types";
 import APIConfigurationIcons from './APIConfigurationIcons';
 
 export interface APIConfiguration {
+    id: string;
     displayName: string;
     icon:  keyof typeof APIConfigurationIcons;
     description: string;
@@ -15,6 +16,7 @@ export interface APIConfiguration {
 export const apiConfigurations: Array<APIConfiguration> = [
     <% it.api.forEach(function(api){ %>
       {
+        id: '<%= api.app.id %>',
         displayName: '<%= api.app.name %>',
         description: '<%= api.app.description %>',
         icon: '<%~ E.includeFile('icon', {icon: api.app.icon}) %>',

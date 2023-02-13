@@ -28,7 +28,7 @@ export const APIPage: FunctionComponent = () => {
     });
 
     const selectedApi = useMemo(() => {
-        const selectedApi = apiConfigurations.find(a => a.displayName === api);
+        const selectedApi = apiConfigurations.find(a => a.id === api);
         if (selectedApi) {
             return selectedApi.getApi();
         }
