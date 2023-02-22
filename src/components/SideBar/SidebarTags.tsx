@@ -44,7 +44,7 @@ export const SidebarTags: FunctionComponent<SidebarTagsProps> = ({tags, selected
             service: [],
             platform: []
         } as Record<DisplayedTagsType, Array<APILabel>>
-    ), tags);
+    ), [tags]);
 
     return (
         <TextContent>
