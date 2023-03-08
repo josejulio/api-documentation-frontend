@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@types/node": "^18.13.0",
-    "discovery": "file://../discovery"
+    "api-documentation-frontend-discovery": "*"
   },
   "scripts": {
     "build": "tsc && cp src/*.eta dist/src/",

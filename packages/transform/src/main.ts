@@ -1,4 +1,4 @@
-import {Discovery, App, Tag, Group} from "discovery/Discovery";
+import {Discovery, App, Tag, Group} from "api-documentation-frontend-discovery/Discovery";
 import {parse} from "yaml";
 import prettier from 'prettier';
 import pLimit from 'p-limit';

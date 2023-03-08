@@ -3,14 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "apidocs",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "build": "react-app-rewired build",
     "eject": "react-app-rewired eject",
     "start": "react-app-rewired start",
     "test": "npm exec jest --src discovery",
     "discovery": "npm-run-all discovery:build discovery:start",
-    "discovery:build": "npm run --prefix transform build",
-    "discovery:start": "npm run --prefix transform start -- --discovery-file `npm prefix`/discovery/Discovery.yml -o `npm prefix`/src/config"
+    "discovery:build": "npm run --workspace packages/transform build",
+    "discovery:start": "npm run --workspace packages/transform start -- --discovery-file `npm prefix`/packages/discovery/Discovery.yml -o `npm prefix`/src/config",
+    "sitemap": "npm run --workspace packages/sitemap build-and-run node scripts/generateSitemap.ts"
   },
   "browserslist": {
     "production": [
@@ -69,6 +73,7 @@
     "react-app-rewired": "^2.2.1",
     "sass": "^1.57.1",
     "sass-loader": "^12.6.0",
+    "sitemaps": "^2.0.4",
     "ts-jest": "^29.0.5",
     "typescript": "^4.9.4",
     "yaml": "^2.2.1"
