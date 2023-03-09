@@ -27,6 +27,7 @@ import {Helmet} from 'react-helmet';
 
 import {SidebarTags} from "../components/SideBar/SidebarTags";
 import {NoMatchFound} from "../components/NoMatchFound/NoMatchFound";
+import {pages} from "../router/Utils";
 
 export const LandingPage: FunctionComponent = () => {
   const [searchInput, setSearchInput] = useState('');
@@ -112,7 +113,7 @@ export const LandingPage: FunctionComponent = () => {
               <Gallery minWidths={{default: '300px'}} hasGutter>
                 { filteredDocs.map(apiConfig => (
                   <GalleryItem key={apiConfig.displayName}>
-                    <Card displayName={apiConfig.displayName} icon={apiConfig.icon ?? APIConfigurationIcons.GenericIcon} description={apiConfig.description} onClick={() => navigate(`/api/${apiConfig.id}`)} />
+                    <Card displayName={apiConfig.displayName} icon={apiConfig.icon ?? APIConfigurationIcons.GenericIcon} description={apiConfig.description} onClick={() => navigate(pages.getApiPage(apiConfig.id))} />
                   </GalleryItem>
                 ))}
               </Gallery> :
