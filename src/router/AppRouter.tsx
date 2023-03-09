@@ -1,7 +1,7 @@
 import {createBrowserRouter, Navigate} from "react-router-dom";
 import {LandingPage} from "../pages/LandingPage";
 import {APIPage} from "../pages/APIPage";
-import {pages} from "./Utils";
+import {pages} from "@apidocs/common";
 
 export const router = createBrowserRouter([
     {
