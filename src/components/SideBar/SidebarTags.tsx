@@ -1,5 +1,5 @@
 import React, {Dispatch, FunctionComponent, SetStateAction, useMemo} from "react";
-import {APILabel} from "../../config/apis";
+import {APILabel} from "@apidocs/api-config";
 import {Checkbox, Text, TextContent, TextVariants} from "@patternfly/react-core";
 import assertNever from "assert-never";
 import produce from "immer";

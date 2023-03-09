@@ -17,7 +17,7 @@ import {
   TextContent,
   TextVariants
 } from "@patternfly/react-core";
-import {apiConfigurations, apiLabels} from "../config/apis";
+import {apiConfigurations, apiLabels, APIConfigurationIcons} from "@apidocs/api-config";
 import {Card} from "../components/Card/Card";
 import { SearchInput } from '@patternfly/react-core';
 import {useNavigate} from "react-router";
@@ -25,7 +25,6 @@ import ThIcon from '@patternfly/react-icons/dist/js/icons/th-icon';
 import ThListIcon from '@patternfly/react-icons/dist/js/icons/th-list-icon';
 import {Helmet} from 'react-helmet';
 
-import APIConfigurationIcons from '../config/APIConfigurationIcons';
 import {SidebarTags} from "../components/SideBar/SidebarTags";
 import {NoMatchFound} from "../components/NoMatchFound/NoMatchFound";
 

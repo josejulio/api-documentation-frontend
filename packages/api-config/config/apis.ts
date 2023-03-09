@@ -3,7 +3,7 @@
 
 import { OpenAPIV3 } from "openapi-types";
 
-import APIConfigurationIcons from "./APIConfigurationIcons";
+import { APIConfigurationIcons } from "./APIConfigurationIcons";
 
 export interface APIConfiguration {
   id: string;
