@@ -17,7 +17,7 @@ import {
   TextContent,
   TextVariants
 } from "@patternfly/react-core";
-import {apiConfigurations, apiLabels, APIConfigurationIcons} from "@apidocs/api-config";
+import {apiConfigurations, apiLabels, APIConfigurationIcons, pages} from "@apidocs/common";
 import {Card} from "../components/Card/Card";
 import { SearchInput } from '@patternfly/react-core';
 import {useNavigate} from "react-router";
@@ -27,7 +27,6 @@ import {Helmet} from 'react-helmet';
 
 import {SidebarTags} from "../components/SideBar/SidebarTags";
 import {NoMatchFound} from "../components/NoMatchFound/NoMatchFound";
-import {pages} from "../router/Utils";
 
 export const LandingPage: FunctionComponent = () => {
   const [searchInput, setSearchInput] = useState('');

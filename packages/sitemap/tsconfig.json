@@ -16,13 +16,11 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
-    "jsx": "react"
   },
   "exclude": [
     "node_modules"
   ],
   "include": [
-    "config",
-    "config/apis/**/*.json"
+    "./src/**/*"
   ]
 }

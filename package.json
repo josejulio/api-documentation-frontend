@@ -12,9 +12,11 @@
     "start": "react-app-rewired start",
     "test": "npm exec jest --src discovery",
     "discovery": "npm-run-all discovery:build discovery:start",
-    "discovery:build": "npm run --workspace packages/transform build",
-    "discovery:start": "npm run --workspace packages/transform start -- --discovery-file `npm prefix`/packages/discovery/Discovery.yml -o `npm prefix`/packages/api-config/config",
-    "sitemap": "npm run --workspace packages/sitemap build-and-run node scripts/generateSitemap.ts"
+    "discovery:build": "npm run --workspace packages/common --workspace packages/transform build",
+    "discovery:start": "npm run --workspace packages/transform start -- --discovery-file `npm prefix`/packages/discovery/Discovery.yml -o `npm prefix`/packages/common/config",
+    "sitemap": "npm-run-all sitemap:build sitemap:start",
+    "sitemap:build": "npm run --workspace packages/common -workspace packages/sitemap build",
+    "sitemap:start": "npm run --workspace packages/sitemap start --  -o `npm prefix`/public -b $SITEMAP_BASE_URL"
   },
   "browserslist": {
     "production": [

@@ -1,7 +1,0 @@
-{
-  "name": "@apidocs/api-config",
-  "description": "Discovered APIs after being transformed by api-documentation-frontend-transform",
-  "private": true,
-  "type": "module",
-  "license": "Apache-2.0"
-}

@@ -1,7 +1,7 @@
 import {FunctionComponent} from 'react';
 import {Card as PFCard, CardBody, Split, SplitItem, Text, TextContent, TextVariants} from '@patternfly/react-core';
 
-import {APIConfigurationIcons} from '@apidocs/api-config';
+import {APIConfigurationIcons} from '@apidocs/common';
 
 export interface CardProps {
   displayName: string;
