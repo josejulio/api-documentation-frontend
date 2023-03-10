@@ -2,20 +2,21 @@
   "name": "@apidocs/sitemap",
   "description": "Creates a sitemap for api-documentation-frontend",
   "private": true,
-  "type": "module",
+  "type": "commonjs",
   "license": "Apache-2.0",
   "bin": {
     "api-transform": "./dist/main.js"
   },
   "dependencies": {
     "commander": "7.2.0",
-    "prettier": "^2.8.4"
+    "prettier": "^2.8.4",
+    "@apidocs/common": "*"
   },
   "devDependencies": {
     "@types/node": "^18.13.0"
   },
   "scripts": {
-    "build": "tsc --build",
-    "start": "node dist/src/main.js"
+    "build": "rollup -c rollup.config.js",
+    "start": "node dist/main.js"
   }
 }

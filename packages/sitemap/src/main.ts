@@ -2,7 +2,6 @@ import {APIConfiguration, apiConfigurations, pages} from "@apidocs/common";
 import {getCommand} from "./program.js";
 import path from "path";
 import {statSync} from 'fs';
-import {fileURLToPath} from "url";
 import {createSitemap} from "sitemaps";
 import {UrlItem} from "sitemaps";
 
@@ -39,10 +38,7 @@ export const execute = async (options: Options) => {
 }
 
 if (process.argv) {
-    const nodePath = path.resolve(process.argv[1]);
-    const modulePath = path.resolve(fileURLToPath(import.meta.url))
-
-    if (nodePath === modulePath) {
+    if (require.main === module) {
         const command = getCommand();
         command.parse(process.argv);
         execute(command.opts() as Options);

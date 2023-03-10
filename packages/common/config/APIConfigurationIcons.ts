@@ -1,10 +1,10 @@
-import AnsibleIcon from  './icon-ansible.js';
-import EdgeIcon from  './icon-edge.js';
-import InsightsIcon from  './icon-insights.js';
-import GenericIcon from  './icon-generic.js';
-import OpenShiftIcon from  './icon-openshift.js';
-import ServicesIcon from  './icon-services.js';
-import SubscriptionsIcon from  './icon-subscriptions.js';
+import AnsibleIcon from  './icon-ansible';
+import EdgeIcon from  './icon-edge';
+import InsightsIcon from  './icon-insights';
+import GenericIcon from  './icon-generic';
+import OpenShiftIcon from  './icon-openshift';
+import ServicesIcon from  './icon-services';
+import SubscriptionsIcon from  './icon-subscriptions';
 
 export const APIConfigurationIcons = {
   AnsibleIcon,

@@ -2,7 +2,7 @@
   "name": "@apidocs/transform",
   "description": "Transforms the discovery data to something usable by the react application",
   "private": true,
-  "type": "module",
+  "type": "commonjs",
   "license": "Apache-2.0",
   "dependencies": {
     "@apidocs/discovery": "*",
@@ -16,7 +16,7 @@
     "@types/node": "^18.13.0"
   },
   "scripts": {
-    "build": "tsc && cp src/*.eta dist/src/",
-    "start": "node dist/src/main.js"
+    "build": "rollup -c rollup.config.js && cp src/*.eta dist",
+    "start": "node dist/main.js"
   }
 }
