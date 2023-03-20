@@ -50,7 +50,7 @@
     height: 100%;
   }
   .pf-c-page__main-section-gallery {
-    overflow: scroll;
+    height: calc(100% - 280px);
   }
   .pf-c-card__body {
     display: flex;

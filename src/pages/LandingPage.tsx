@@ -1,4 +1,4 @@
-import {FunctionComponent, useState} from 'react';
+import {FunctionComponent, useEffect, useMemo, useState} from 'react';
 import {
   Button,
   Form,
@@ -7,7 +7,7 @@ import {
   Page,
   PageGroup,
   PageSection,
-  PageSectionVariants,
+  PageSectionVariants, Pagination,
   Sidebar,
   SidebarContent,
   SidebarPanel,
@@ -28,9 +28,11 @@ import {Helmet} from 'react-helmet';
 import {SidebarTags} from "../components/SideBar/SidebarTags";
 import {NoMatchFound} from "../components/NoMatchFound/NoMatchFound";
 import {Tag, Tags} from "../components/Tags";
+import { useWindowSize } from 'react-use';
 
 export const LandingPage: FunctionComponent = () => {
   const [searchInput, setSearchInput] = useState('');
+  const { width: windowSizeWidth } = useWindowSize();
 
   const onChange = (searchInput: string) => {
     setSearchInput(searchInput);
@@ -42,9 +44,36 @@ export const LandingPage: FunctionComponent = () => {
     (apiConfig) => apiConfig.displayName.toLowerCase().includes(searchInput.toLowerCase())
   ).filter(apiConfig => selectedTags.length === 0 || apiConfig.tags.some(tag => selectedTags.includes(tag.id)));
 
+  const [paging, setPaging] = useState({
+    count: filteredDocs.length,
+    perPage: 3,
+    page: 1
+  });
+
   const clearFilters = () => {
     setSearchInput('');
     setSelectedTags([]);
+    setPaging(prev => ({...prev, page: 0}));
+  };
+
+  useEffect(() => {
+    const gallery = document.getElementById('apid-c-api-gallery');
+    if (gallery && gallery.children.length > 0) {
+      const first = gallery.children.item(0)!;
+      const elementsPerRow = [...gallery.children].filter(c => 'offsetTop' in first && 'offsetTop' in c && first.offsetTop === c.offsetTop).length;
+      setPaging({
+        count: filteredDocs.length,
+        perPage: 3 * elementsPerRow,
+        page: 1
+      });
+      console.log(elementsPerRow);
+    }
+  }, [windowSizeWidth]);
+
+  const paginatedDocs = filteredDocs.slice((paging.page - 1) * paging.perPage, paging.page * paging.perPage);
+
+  const onSetPage = (_event: unknown, page: number) => {
+    setPaging(prev => ({...prev, page: page}));
   };
 
   const navigate = useNavigate();
@@ -86,24 +115,35 @@ export const LandingPage: FunctionComponent = () => {
                 </Split>
               </PageSection>
             </PageGroup>
-            <PageSection className="pf-c-page__main-section-gallery pf-u-px-lg-on-md pf-u-pb-3xl">
-              { filteredDocs.length > 0 ?
-              <Gallery minWidths={{default: '300px'}} hasGutter>
-                { filteredDocs.map(apiConfig => (
-                  <GalleryItem key={apiConfig.displayName}>
-                    <Card displayName={apiConfig.displayName} icon={apiConfig.icon ?? APIConfigurationIcons.GenericIcon} description={apiConfig.description} onClick={() => navigate(pages.getApiPage(apiConfig.id))} >
-                      { apiConfig.tags.length > 0 && (
-                          <div className="apid-tags__main">
-                            <Tags>
-                              {apiConfig.tags.map(t => <Tag key={t.id} value={t} />)}
-                            </Tags>
-                          </div>
-                      )}
-                    </Card>
-                  </GalleryItem>
-                ))}
-              </Gallery> :
+            <PageSection isFilled={true} className="pf-c-page__main-section-gallery">
+              { paginatedDocs.length > 0 ?
+              <>
+                <Gallery id="apid-c-api-gallery" minWidths={{default: '300px'}} hasGutter>
+                  { paginatedDocs.map(apiConfig => (
+                      <GalleryItem key={apiConfig.displayName}>
+                        <Card displayName={apiConfig.displayName} icon={apiConfig.icon ?? APIConfigurationIcons.GenericIcon} description={apiConfig.description} onClick={() => navigate(pages.getApiPage(apiConfig.id))} >
+                          { apiConfig.tags.length > 0 && (
+                              <div className="apid-tags__main">
+                                <Tags>
+                                  {apiConfig.tags.map(t => <Tag key={t.id} value={t} />)}
+                                </Tags>
+                              </div>
+                          )}
+                        </Card>
+                      </GalleryItem>
+                  ))}
+                </Gallery>
+              </>:
               <NoMatchFound clearFilters={clearFilters} /> }
+            </PageSection>
+            <PageSection  className="pf-u-background-color-100">
+              <Pagination
+                  itemCount={paging.count}
+                  perPage={paging.perPage}
+                  page={paging.page}
+                  onSetPage={onSetPage}
+                  className="pf-u-pb-sm"
+              />
             </PageSection>
           </SidebarContent>
         </Sidebar>
