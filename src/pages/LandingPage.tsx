@@ -1,4 +1,4 @@
-import {FunctionComponent, useEffect, useMemo, useState} from 'react';
+import {FunctionComponent, useMemo, useState} from 'react';
 import {
   Button,
   Form,
@@ -28,11 +28,10 @@ import {Helmet} from 'react-helmet';
 import {SidebarTags} from "../components/SideBar/SidebarTags";
 import {NoMatchFound} from "../components/NoMatchFound/NoMatchFound";
 import {Tag, Tags} from "../components/Tags";
-import { useWindowSize } from 'react-use';
+import {usePaginatedGallery} from "../components/Card/usePaginatedGallery";
 
 export const LandingPage: FunctionComponent = () => {
   const [searchInput, setSearchInput] = useState('');
-  const { width: windowSizeWidth } = useWindowSize();
 
   const onChange = (searchInput: string) => {
     setSearchInput(searchInput);
@@ -40,40 +39,19 @@ export const LandingPage: FunctionComponent = () => {
 
   const [selectedTags, setSelectedTags] = useState<ReadonlyArray<string>>([]);
 
-  const filteredDocs = apiConfigurations.filter(
-    (apiConfig) => apiConfig.displayName.toLowerCase().includes(searchInput.toLowerCase())
-  ).filter(apiConfig => selectedTags.length === 0 || apiConfig.tags.some(tag => selectedTags.includes(tag.id)));
+  const filteredDocs = useMemo(() => apiConfigurations
+      .filter((apiConfig) => apiConfig.displayName.toLowerCase().includes(searchInput.toLowerCase()))
+      .filter(apiConfig => selectedTags.length === 0 || apiConfig.tags.some(tag => selectedTags.includes(tag.id))),
+  [searchInput, selectedTags]
+  );
 
-  const [paging, setPaging] = useState({
-    count: filteredDocs.length,
-    perPage: 3,
-    page: 1
-  });
+  const galleryId = 'apid-c-api-gallery';
+  const paginatedGalleryInfo = usePaginatedGallery(galleryId, filteredDocs);
 
   const clearFilters = () => {
     setSearchInput('');
     setSelectedTags([]);
-    setPaging(prev => ({...prev, page: 0}));
-  };
-
-  useEffect(() => {
-    const gallery = document.getElementById('apid-c-api-gallery');
-    if (gallery && gallery.children.length > 0) {
-      const first = gallery.children.item(0)!;
-      const elementsPerRow = [...gallery.children].filter(c => 'offsetTop' in first && 'offsetTop' in c && first.offsetTop === c.offsetTop).length;
-      setPaging({
-        count: filteredDocs.length,
-        perPage: 3 * elementsPerRow,
-        page: 1
-      });
-      console.log(elementsPerRow);
-    }
-  }, [windowSizeWidth]);
-
-  const paginatedDocs = filteredDocs.slice((paging.page - 1) * paging.perPage, paging.page * paging.perPage);
-
-  const onSetPage = (_event: unknown, page: number) => {
-    setPaging(prev => ({...prev, page: page}));
+    paginatedGalleryInfo.onSetPage(1);
   };
 
   const navigate = useNavigate();
@@ -116,32 +94,30 @@ export const LandingPage: FunctionComponent = () => {
               </PageSection>
             </PageGroup>
             <PageSection isFilled={true} className="pf-c-page__main-section-gallery">
-              { paginatedDocs.length > 0 ?
-              <>
-                <Gallery id="apid-c-api-gallery" minWidths={{default: '300px'}} hasGutter>
-                  { paginatedDocs.map(apiConfig => (
-                      <GalleryItem key={apiConfig.displayName}>
-                        <Card displayName={apiConfig.displayName} icon={apiConfig.icon ?? APIConfigurationIcons.GenericIcon} description={apiConfig.description} onClick={() => navigate(pages.getApiPage(apiConfig.id))} >
-                          { apiConfig.tags.length > 0 && (
-                              <div className="apid-tags__main">
-                                <Tags>
-                                  {apiConfig.tags.map(t => <Tag key={t.id} value={t} />)}
-                                </Tags>
-                              </div>
-                          )}
-                        </Card>
-                      </GalleryItem>
-                  ))}
-                </Gallery>
-              </>:
+              { paginatedGalleryInfo.paginatedElements.length > 0 ?
+              <Gallery id={galleryId} minWidths={{default: '300px'}} hasGutter>
+                { paginatedGalleryInfo.paginatedElements.map(apiConfig => (
+                  <GalleryItem key={apiConfig.displayName}>
+                    <Card displayName={apiConfig.displayName} icon={apiConfig.icon ?? APIConfigurationIcons.GenericIcon} description={apiConfig.description} onClick={() => navigate(pages.getApiPage(apiConfig.id))} >
+                      { apiConfig.tags.length > 0 && (
+                          <div className="apid-tags__main">
+                            <Tags>
+                              {apiConfig.tags.map(t => <Tag key={t.id} value={t} />)}
+                            </Tags>
+                          </div>
+                      )}
+                    </Card>
+                  </GalleryItem>
+                ))}
+              </Gallery> :
               <NoMatchFound clearFilters={clearFilters} /> }
             </PageSection>
             <PageSection  className="pf-u-background-color-100">
               <Pagination
-                  itemCount={paging.count}
-                  perPage={paging.perPage}
-                  page={paging.page}
-                  onSetPage={onSetPage}
+                  itemCount={paginatedGalleryInfo.count}
+                  perPage={paginatedGalleryInfo.perPage}
+                  page={paginatedGalleryInfo.page}
+                  onSetPage={(_event, page) => paginatedGalleryInfo.onSetPage(page)}
                   className="pf-u-pb-sm"
               />
             </PageSection>
