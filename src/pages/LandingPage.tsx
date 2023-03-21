@@ -83,7 +83,7 @@ export const LandingPage: FunctionComponent = () => {
               </div>
             </PageSection>
 
-            <PageSection style={paginatedGalleryInfo.height ? {minHeight: paginatedGalleryInfo.height + 32 /* Appends the Gallery padding */ } : undefined} padding={{ default: 'noPadding' }} isFilled={true}>
+            <PageSection style={paginatedGalleryInfo.height ? {minHeight: paginatedGalleryInfo.height} : undefined} padding={{ default: 'noPadding' }} isFilled={true}>
               <GalleryTemplate
                   id={galleryId}
                   elements={filteredDocs}

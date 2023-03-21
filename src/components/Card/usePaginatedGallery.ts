@@ -51,6 +51,13 @@ export const usePaginatedGallery = <T>(cardContainerId: string, elements: Readon
                 height = Math.max(height, last.offsetTop - first.offsetTop + last.offsetHeight);
             }
 
+            const galleryStyle = getComputedStyle(gallery);
+
+            height += parseInt(galleryStyle.marginTop);
+            height += parseInt(galleryStyle.paddingTop);
+            height += parseInt(galleryStyle.paddingBottom);
+            height += parseInt(galleryStyle.marginBottom);
+
             gallery.style.display = 'none';
 
             setHeight(height);
