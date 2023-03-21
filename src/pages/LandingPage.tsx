@@ -5,14 +5,11 @@ import {
   Gallery,
   GalleryItem,
   Page,
-  PageGroup,
   PageSection,
   PageSectionVariants, Pagination,
   Sidebar,
   SidebarContent,
   SidebarPanel,
-  Split,
-  SplitItem,
   Text,
   TextContent,
   TextVariants
@@ -59,11 +56,11 @@ export const LandingPage: FunctionComponent = () => {
       <Helmet>
         <title>API Docs</title>
       </Helmet>
-      <Page className="apid-c-page-landingpage pf-u-background-color-100 pf-m-full-height">
+      <Page className="apid-c-page-landingpage pf-u-background-color-100">
         <Sidebar>
           <SidebarPanel className="pf-u-p-lg">
             <Form>
-            <SearchInput
+              <SearchInput
                 placeholder="Find by product or service name"
                 value={searchInput}
                 onChange={(_event, searchInput) => onChange(searchInput)}
@@ -72,30 +69,28 @@ export const LandingPage: FunctionComponent = () => {
               <SidebarTags tags={apiLabels} selected={selectedTags} setSelected={setSelectedTags} />
             </Form>
           </SidebarPanel>
-          <SidebarContent>
-            <PageGroup stickyOnBreakpoint={{ md: 'top' }} >
-              <PageSection variant={PageSectionVariants.darker} className="pf-u-px-2xl-on-md pf-u-pb-2xl pf-u-background-color-dark-100">
-                <TextContent>
-                  <Text component={TextVariants.h1}>The Red Hat API Documentation and Guides</Text>
-                  <Text component={TextVariants.p}>
-                    Here you'll find APIs for many Red Hat products and services.
-                    Check back regularly as we're adding new ones all the time.
-                  </Text>
-                </TextContent>
-              </PageSection>
-              <PageSection variant={PageSectionVariants.light} className="pf-u-px-lg-on-md">
-                <Split>
-                  <SplitItem isFilled></SplitItem>
-                  <SplitItem className="pf-u-pt-sm">
-                    <Button variant="link" icon={<ThIcon />} className="pf-u-mr-sm" isInline isLarge/>
-                    <Button variant="link" icon={<ThListIcon />} isInline isLarge isDisabled/>
-                  </SplitItem>
-                </Split>
-              </PageSection>
-            </PageGroup>
-            <PageSection isFilled={true} className="pf-c-page__main-section-gallery">
+          <SidebarContent className="pf-u-display-flex pf-u-flex-direction-column">
+
+            <PageSection variant={PageSectionVariants.darker} className="pf-u-px-2xl-on-md pf-u-pb-2xl pf-u-background-color-dark-100">
+              <TextContent>
+                <Text component={TextVariants.h1}>The Red Hat API Documentation and Guides</Text>
+                <Text component={TextVariants.p}>
+                  Here you'll find APIs for many Red Hat products and services.
+                  Check back regularly as we're adding new ones all the time.
+                </Text>
+              </TextContent>
+            </PageSection>
+
+            <PageSection variant={PageSectionVariants.light} className="pf-u-p-md">
+              <div className="pf-u-text-align-right">
+                <Button variant="link" icon={<ThIcon />} className="pf-u-mr-sm" isInline isLarge/>
+                <Button variant="link" icon={<ThListIcon />} isInline isLarge isDisabled/>
+              </div>
+            </PageSection>
+
+            <PageSection padding={{ default: 'noPadding' }} isFilled={true}>
               { paginatedGalleryInfo.paginatedElements.length > 0 ?
-              <Gallery id={galleryId} minWidths={{default: '300px'}} hasGutter>
+                <Gallery id={galleryId} className="pf-u-m-md" minWidths={{default: '300px'}} hasGutter>
                 { paginatedGalleryInfo.paginatedElements.map(apiConfig => (
                   <GalleryItem key={apiConfig.displayName}>
                     <Card displayName={apiConfig.displayName} icon={apiConfig.icon ?? APIConfigurationIcons.GenericIcon} description={apiConfig.description} onClick={() => navigate(pages.getApiPage(apiConfig.id))} >
@@ -112,13 +107,13 @@ export const LandingPage: FunctionComponent = () => {
               </Gallery> :
               <NoMatchFound clearFilters={clearFilters} /> }
             </PageSection>
-            <PageSection  className="pf-u-background-color-100">
+
+            <PageSection padding={{ md: 'noPadding' }} variant={PageSectionVariants.light} isFilled={false}>
               <Pagination
                   itemCount={paginatedGalleryInfo.count}
                   perPage={paginatedGalleryInfo.perPage}
                   page={paginatedGalleryInfo.page}
                   onSetPage={(_event, page) => paginatedGalleryInfo.onSetPage(page)}
-                  className="pf-u-pb-sm"
               />
             </PageSection>
           </SidebarContent>
