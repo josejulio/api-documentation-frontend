@@ -13,7 +13,7 @@ export interface PaginationInfo<T> extends PaginatedGalleryState{
     onSetPage: (page: number) => void;
 }
 
-const ROWS_PER_PAGE = 2;
+const ROWS_PER_PAGE = 3;
 
 export const usePaginatedGallery = <T>(cardContainerId: string, elements: ReadonlyArray<T>): PaginationInfo<T> => {
     const { width: windowSizeWidth, height: windowSizeHeight } = useWindowSize();
