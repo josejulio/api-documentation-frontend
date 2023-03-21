@@ -7,20 +7,18 @@ import {Tag, Tags} from "../components/Tags";
 
 interface GaleryProps {
     id?: string;
-    minHeight?: number;
     elements: ReadonlyArray<APIConfiguration>;
     isHidden?: boolean
 }
 
-export const GalleryTemplate: FunctionComponent<GaleryProps> = ({id, minHeight, elements, isHidden}) => {
+export const GalleryTemplate: FunctionComponent<GaleryProps> = ({id, elements, isHidden}) => {
     const navigate = useNavigate();
 
-    const style = useMemo<CSSProperties>(() => ({
-        minHeight: minHeight,
-        visibility: isHidden ? 'hidden' : undefined,
-        overflow: isHidden ? 'hidden': '',
-        height: isHidden ? 0 : ''
-    }), [isHidden, minHeight]);
+    const style = useMemo<CSSProperties>(() => (isHidden ? {
+        visibility: 'hidden',
+        overflow: 'hidden',
+        height: 0
+    } : {}), [isHidden]);
 
     return (
         <Gallery id={id} className="pf-u-m-md" style={style} minWidths={{default: '300px'}} hasGutter>

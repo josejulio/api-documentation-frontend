@@ -36,6 +36,7 @@ export const usePaginatedGallery = <T>(cardContainerId: string, elements: Readon
 
     useEffect(() => {
         if (gallery && gallery.children.length > 0) {
+            gallery.style.display = 'grid';
             const first = gallery.children.item(0)!;
             const children = [...gallery.children];
             const elementsPerRow = children.filter(c => 'offsetTop' in first && 'offsetTop' in c && first.offsetTop === c.offsetTop).length;
@@ -50,10 +51,12 @@ export const usePaginatedGallery = <T>(cardContainerId: string, elements: Readon
                 height = Math.max(height, last.offsetTop - first.offsetTop + last.offsetHeight);
             }
 
+            gallery.style.display = 'none';
+
             setHeight(height);
             setPaging(prev => ({
                 count: elements.length,
-                perPage: ROWS_PER_PAGE * elementsPerRow,
+                perPage,
                 page: Math.min(prev.page, lastPage)
             }));
         }
