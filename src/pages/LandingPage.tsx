@@ -14,7 +14,6 @@ import {
 } from "@patternfly/react-core";
 import {apiConfigurations, apiLabels} from "@apidocs/common";
 import { SearchInput } from '@patternfly/react-core';
-import {useNavigate} from "react-router";
 import ThIcon from '@patternfly/react-icons/dist/js/icons/th-icon';
 import ThListIcon from '@patternfly/react-icons/dist/js/icons/th-list-icon';
 import {Helmet} from 'react-helmet';
@@ -48,7 +47,6 @@ export const LandingPage: FunctionComponent = () => {
     paginatedGalleryInfo.onSetPage(1);
   };
 
-  const navigate = useNavigate();
     return <>
       <Helmet>
         <title>API Docs</title>

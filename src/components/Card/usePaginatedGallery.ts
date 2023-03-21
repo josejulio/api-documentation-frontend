@@ -1,4 +1,4 @@
-import {useEffect, useId, useState} from "react";
+import {useEffect, useState} from "react";
 import {useDebounce, useWindowSize} from "react-use";
 import {useGetHtmlElementById} from "../../hooks/useGetHtmlElementById";
 
@@ -20,7 +20,6 @@ export const usePaginatedGallery = <T>(cardContainerId: string, elements: Readon
     const { width: windowSizeWidth, height: windowSizeHeight } = useWindowSize();
     const [debouncedSize, setDebouncedSize] = useState<[number, number]>([windowSizeWidth , windowSizeHeight]);
     const [height, setHeight] = useState<number>();
-    const sampleContentId = useId();
 
     useDebounce(() => {
         setDebouncedSize([windowSizeWidth, windowSizeHeight]);
