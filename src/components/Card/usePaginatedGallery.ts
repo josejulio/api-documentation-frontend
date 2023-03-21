@@ -32,10 +32,11 @@ export const usePaginatedGallery = <T>(cardContainerId: string, elements: Readon
         if (gallery && gallery.children.length > 0) {
             const first = gallery.children.item(0)!;
             const elementsPerRow = [...gallery.children].filter(c => 'offsetTop' in first && 'offsetTop' in c && first.offsetTop === c.offsetTop).length;
+
             setPaging(prev => ({
                 count: elements.length,
                 perPage: ROWS_PER_PAGE * elementsPerRow,
-                page: Math.min(prev.page, elements.length / (ROWS_PER_PAGE * elementsPerRow))
+                page: Math.min(prev.page, Math.floor(elements.length / (ROWS_PER_PAGE * elementsPerRow)) + 1)
             }));
         }
     }, [windowSizeWidth, windowSizeHeight, cardContainerId, elements.length, gallery]);
