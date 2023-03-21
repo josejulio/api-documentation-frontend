@@ -2,8 +2,6 @@ import {FunctionComponent, useMemo, useState} from 'react';
 import {
   Button,
   Form,
-  Gallery,
-  GalleryItem,
   Page,
   PageSection,
   PageSectionVariants, Pagination,
@@ -14,8 +12,7 @@ import {
   TextContent,
   TextVariants
 } from "@patternfly/react-core";
-import {apiConfigurations, apiLabels, APIConfigurationIcons, pages} from "@apidocs/common";
-import {Card} from "../components/Card/Card";
+import {apiConfigurations, apiLabels} from "@apidocs/common";
 import { SearchInput } from '@patternfly/react-core';
 import {useNavigate} from "react-router";
 import ThIcon from '@patternfly/react-icons/dist/js/icons/th-icon';
@@ -24,8 +21,8 @@ import {Helmet} from 'react-helmet';
 
 import {SidebarTags} from "../components/SideBar/SidebarTags";
 import {NoMatchFound} from "../components/NoMatchFound/NoMatchFound";
-import {Tag, Tags} from "../components/Tags";
 import {usePaginatedGallery} from "../components/Card/usePaginatedGallery";
+import {GalleryTemplate} from "./GalleryTemplate";
 
 export const LandingPage: FunctionComponent = () => {
   const [searchInput, setSearchInput] = useState('');
@@ -89,22 +86,16 @@ export const LandingPage: FunctionComponent = () => {
             </PageSection>
 
             <PageSection padding={{ default: 'noPadding' }} isFilled={true}>
+              <GalleryTemplate
+                  id={galleryId}
+                  elements={filteredDocs}
+                  isHidden
+              />
               { paginatedGalleryInfo.paginatedElements.length > 0 ?
-                <Gallery id={galleryId} className="pf-u-m-md" minWidths={{default: '300px'}} hasGutter>
-                { paginatedGalleryInfo.paginatedElements.map(apiConfig => (
-                  <GalleryItem key={apiConfig.displayName}>
-                    <Card displayName={apiConfig.displayName} icon={apiConfig.icon ?? APIConfigurationIcons.GenericIcon} description={apiConfig.description} onClick={() => navigate(pages.getApiPage(apiConfig.id))} >
-                      { apiConfig.tags.length > 0 && (
-                          <div className="apid-tags__main">
-                            <Tags>
-                              {apiConfig.tags.map(t => <Tag key={t.id} value={t} />)}
-                            </Tags>
-                          </div>
-                      )}
-                    </Card>
-                  </GalleryItem>
-                ))}
-              </Gallery> :
+                  <GalleryTemplate
+                      elements={paginatedGalleryInfo.paginatedElements}
+                      minHeight={paginatedGalleryInfo.height}
+                  /> :
               <NoMatchFound clearFilters={clearFilters} /> }
             </PageSection>
 
@@ -114,6 +105,12 @@ export const LandingPage: FunctionComponent = () => {
                   perPage={paginatedGalleryInfo.perPage}
                   page={paginatedGalleryInfo.page}
                   onSetPage={(_event, page) => paginatedGalleryInfo.onSetPage(page)}
+                  perPageOptions={[{
+                    title: paginatedGalleryInfo.perPage+'',
+                    value: paginatedGalleryInfo.perPage
+                  }]}
+                  dropDirection="up"
+                  variant="bottom"
               />
             </PageSection>
           </SidebarContent>
