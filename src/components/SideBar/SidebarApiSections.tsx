@@ -61,13 +61,13 @@ export const SidebarApiSections: FunctionComponent<SidebarApiSectionsProps> = ({
             </Fragment>);
         }
 
-        links.push(<JumpLinksItem href={`#${getOperationId()}`}>
+        links.push(<JumpLinksItem key="operations" href={`#${getOperationId()}`}>
             Operations
             {operationSublinkContent.length > 0 ? <JumpLinksList>{operationSublinkContent}</JumpLinksList> : []}
         </JumpLinksItem>);
 
         if (openapi?.components?.schemas) {
-            links.push(<JumpLinksItem href={`#${getSchemasId()}`}>Schemas</JumpLinksItem>);
+            links.push(<JumpLinksItem key="schemas" href={`#${getSchemasId()}`}>Schemas</JumpLinksItem>);
         }
 
         return links;
@@ -85,7 +85,6 @@ export const SidebarApiSections: FunctionComponent<SidebarApiSectionsProps> = ({
         <div className="pf-u-pt-lg">
             <JumpLinks
                 label={openapi && getTitleWithVersion(openapi)}
-                scrollableSelector={scrollableSelector}
                 offset={offset}
                 className="apid-c-jump-links"
                 isVertical
