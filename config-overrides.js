@@ -13,6 +13,34 @@ const configureMonaco = (config) => {
     return config;
 }
 
+const resolveSSI = (config) => {
+    config.module.rules.push({
+        test: /\.html?$/,
+        use: [
+            {
+                loader: 'html-loader'
+            },
+            {
+                loader: 'webpack-ssi-include-loader',
+                options: {
+                    location: 'https://developers.redhat.com',
+                    disableLocalScan: true,
+                    onFileMatch: (filePath, fileContent, isLocal) => {
+                        console.log(fileContent);
+                        return fileContent.replaceAll('https://developers.redhat.com', 'http://localhost:3000/developers_base/')
+                        /*console.log('--------------------')
+                        console.log(filePath)
+                        console.log(fileContent)
+                        console.log(isLocal)*/
+                    }
+                },
+            },
+        ]
+    });
+
+    return config;
+}
+
 /**
  * Allows to include code from other workspaces - the code is then compiled by typescript.
  * @param config
@@ -42,5 +70,6 @@ const addWorkspaces = (config) => {
 
 module.exports = override(
     addWorkspaces,
-    configureMonaco
+    configureMonaco,
+    resolveSSI
 );
