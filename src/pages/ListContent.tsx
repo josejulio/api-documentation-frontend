@@ -19,7 +19,7 @@ export const ListContent: FunctionComponent<ListContentProps> = ({galleryId, ite
         tags: 'Tags',
       };
 
-    return <Fragment>
+    return <div className="pf-u-m-md">
     <TableComposable aria-label="Misc table">
     <Thead noWrap>
       <Tr>
@@ -42,5 +42,5 @@ export const ListContent: FunctionComponent<ListContentProps> = ({galleryId, ite
           /> : <NoMatchFound clearFilters={clearFilters} /> }
     </Tbody>
     </TableComposable>
-  </Fragment>
+  </div>;
 }
