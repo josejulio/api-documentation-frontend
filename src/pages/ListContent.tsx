@@ -1,4 +1,4 @@
-import {Fragment, FunctionComponent} from 'react';
+import {FunctionComponent} from 'react';
 import {Flex, FlexItem} from "@patternfly/react-core";
 import { TableComposable, Thead, Tr, Th, Tbody} from '@patternfly/react-table';
 import { APIConfiguration } from '@apidocs/common';
