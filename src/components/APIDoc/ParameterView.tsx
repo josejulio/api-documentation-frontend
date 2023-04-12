@@ -27,17 +27,17 @@ export const ParameterView: React.FunctionComponent<ParameterViewProps> = ({titl
             <Tbody>
                 {parameters.map(((p, index) => (
                 <Tr key={index}>
-                    <Td>{p.name}</Td>
                     <Td>
                         <Flex>
                             <FlexItem className="pf-u-mr-xs">
-                                <Text component={TextVariants.p}>{getType(p.schema, document)}</Text>
+                                <Text component={TextVariants.p}>{p.name}</Text>
                             </FlexItem>
                             <FlexItem>
                                 <Text component={TextVariants.p} className="pf-u-danger-color-100">{p.required && "*"}</Text>
                             </FlexItem>
                         </Flex>
                     </Td>
+                    <Td>{getType(p.schema, document)}</Td>
                     <Td>{p.description}</Td>
                 </Tr>
                 )))}
