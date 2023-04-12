@@ -4,10 +4,10 @@ import {
   Form,
   Page,
   PageSection,
-  PageSectionVariants, Pagination,
+  PageSectionVariants, Pagination, PaginationProps,
   Sidebar,
   SidebarContent,
-  SidebarPanel,
+  SidebarPanel, Split, SplitItem,
   Text,
   TextContent,
   TextVariants,
@@ -71,6 +71,25 @@ export const LandingPage: FunctionComponent = () => {
     minHeight: Math.max(galleryHeight ?? 0, 500)
   };
 
+  // For some reason the type doesn't like 'ref'.
+  const basePaginationProps: Omit<PaginationProps, 'ref'> = {
+    itemCount: pagination.count,
+    perPage: pagination.perPage,
+    page: pagination.page,
+    onSetPage: (_event, page) => pagination.onSetPage(page),
+    onPerPageSelect: (_event, perPage, newPage) => {
+      pagination.onSetPerPage(perPage);
+      pagination.onSetPage(newPage);
+    },
+    perPageOptions: view === 'grid' ? [{
+      title: pagination.perPage.toString(),
+      value: pagination.perPage
+    }] : undefined,
+    dropDirection: "up",
+    variant: "bottom",
+    className: "pf-u-py-sm"
+  }
+
   return <>
     <Helmet>
       <title>API Docs</title>
@@ -103,10 +122,20 @@ export const LandingPage: FunctionComponent = () => {
           <PageSection variant={PageSectionVariants.light} className="pf-u-p-md">
             <Flex direction={{ default: "rowReverse" }}>
               <FlexItem>
-                <ToggleGroup aria-label="API content type toggle group">
-                  <ToggleGroupItem buttonId="display-cards" icon={<ThIcon />} aria-label="Cards display" isSelected={view === 'grid'} onChange={() => changeView('grid')} />
-                  <ToggleGroupItem buttonId="display-list" icon={<ThListIcon />} aria-label="Table display" isSelected={view === 'list'} onChange={() => changeView('list')} />
-                </ToggleGroup>
+                <Split>
+                  <SplitItem>
+                    <Pagination
+                        { ...basePaginationProps }
+                        isCompact
+                    />
+                  </SplitItem>
+                  <SplitItem className="apid-landing-layout-toggle-group">
+                    <ToggleGroup aria-label="API content type toggle group">
+                      <ToggleGroupItem buttonId="display-cards" icon={<ThIcon />} aria-label="Cards display" isSelected={view === 'grid'} onChange={() => changeView('grid')} />
+                      <ToggleGroupItem buttonId="display-list" icon={<ThListIcon />} aria-label="Table display" isSelected={view === 'list'} onChange={() => changeView('list')} />
+                    </ToggleGroup>
+                  </SplitItem>
+                </Split>
               </FlexItem>
             </Flex>
           </PageSection>
@@ -119,23 +148,7 @@ export const LandingPage: FunctionComponent = () => {
           </PageSection>
 
           <PageSection className="pf-u-pl-md" padding={{ md: 'noPadding' }} variant={PageSectionVariants.light} isFilled={false}>
-            <Pagination
-                itemCount={pagination.count}
-                perPage={pagination.perPage}
-                page={pagination.page}
-                onSetPage={(_event, page) => pagination.onSetPage(page)}
-                onPerPageSelect={(_event, perPage, newPage) => {
-                  pagination.onSetPerPage(perPage);
-                  pagination.onSetPage(newPage);
-                }}
-                perPageOptions={view === 'grid' ? [{
-                  title: pagination.perPage.toString(),
-                  value: pagination.perPage
-                }] : undefined}
-                dropDirection="up"
-                variant="bottom"
-                className="pf-u-py-sm"
-            />
+            <Pagination { ...basePaginationProps} />
           </PageSection>
         </SidebarContent>
       </Sidebar>
