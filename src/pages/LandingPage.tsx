@@ -1,6 +1,6 @@
 import {CSSProperties, FunctionComponent, useEffect, useMemo, useState} from 'react';
 import {
-  Button,
+  Flex, FlexItem,
   Form,
   Page,
   PageSection,
@@ -10,7 +10,9 @@ import {
   SidebarPanel,
   Text,
   TextContent,
-  TextVariants
+  TextVariants,
+  ToggleGroup,
+  ToggleGroupItem
 } from "@patternfly/react-core";
 import {apiConfigurations, apiLabels} from "@apidocs/common";
 import { SearchInput } from '@patternfly/react-core';
@@ -99,10 +101,14 @@ export const LandingPage: FunctionComponent = () => {
           </PageSection>
 
           <PageSection variant={PageSectionVariants.light} className="pf-u-p-md">
-            <div className="pf-u-text-align-right">
-              <Button isDisabled={view === 'grid'} variant="link" icon={<ThIcon />} onClick={() => changeView('grid')} className="pf-u-mr-sm apid-landing-layout-button" isInline isLarge/>
-              <Button isDisabled={view === 'list'} variant="link" icon={<ThListIcon />} onClick={() => changeView('list')} className="apid-landing-layout-button" isInline isLarge/>
-            </div>
+            <Flex direction={{ default: "rowReverse" }}>
+              <FlexItem>
+                <ToggleGroup aria-label="API content type toggle group">
+                  <ToggleGroupItem buttonId="display-cards" icon={<ThIcon />} aria-label="Cards display" isSelected={view === 'grid'} onChange={() => changeView('grid')} />
+                  <ToggleGroupItem buttonId="display-list" icon={<ThListIcon />} aria-label="Table display" isSelected={view === 'list'} onChange={() => changeView('list')} />
+                </ToggleGroup>
+              </FlexItem>
+            </Flex>
           </PageSection>
 
           <PageSection className="apid-c-page__main-section-gallery" style={galleryPageStyle} isFilled={true}>
