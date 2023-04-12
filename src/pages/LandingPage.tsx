@@ -46,12 +46,20 @@ export const LandingPage: FunctionComponent = () => {
 
   const galleryId = 'apid-c-api-gallery';
   const pagination = usePagination(filteredDocs, 10);
-  const galleryHeight = usePaginatedGallery(galleryId, view === 'grid', pagination.onSetPage, pagination.onSetPerPage);
+
+  usePaginatedGallery(galleryId, view === 'grid', {
+    setPage: pagination.onSetPage,
+    perPage: pagination.perPage,
+    setPerPage: pagination.onSetPerPage,
+    setAvailablePerPage: pagination.setAvailablePerPage,
+    defaultAvailablePerPage: usePagination.defaultAvailablePerPage
+  });
 
   const changeView = (toView: 'grid' | 'list') => {
     setView(toView);
     pagination.onSetPage(1);
     if (toView === 'list') {
+      pagination.setAvailablePerPage();
       pagination.onSetPerPage(10);
     }
   }
@@ -67,10 +75,6 @@ export const LandingPage: FunctionComponent = () => {
     onSetPage(1);
   }, [filteredDocs, pagination.onSetPage]);
 
-  const galleryPageStyle: CSSProperties = {
-    minHeight: Math.max(galleryHeight ?? 0, 500)
-  };
-
   // For some reason the type doesn't like 'ref'.
   const basePaginationProps: Omit<PaginationProps, 'ref'> = {
     itemCount: pagination.count,
@@ -81,10 +85,10 @@ export const LandingPage: FunctionComponent = () => {
       pagination.onSetPerPage(perPage);
       pagination.onSetPage(newPage);
     },
-    perPageOptions: view === 'grid' ? [{
-      title: pagination.perPage.toString(),
-      value: pagination.perPage
-    }] : undefined,
+    perPageOptions: pagination.availablePerPage.map(a => ({
+      title: a.toString(),
+      value: a
+    })),
     dropDirection: "up",
     variant: "bottom",
     className: "pf-u-py-sm"
@@ -140,7 +144,7 @@ export const LandingPage: FunctionComponent = () => {
             </Flex>
           </PageSection>
 
-          <PageSection className="apid-c-page__main-section-gallery" style={galleryPageStyle} isFilled={true}>
+          <PageSection className="apid-c-page__main-section-gallery" isFilled={true}>
           { view === 'grid'
             ? <GridContent galleryId={galleryId} allItems={filteredDocs} items={pagination.items} clearFilters={clearFilters}/>
             : <ListContent galleryId={galleryId} items={pagination.items} clearFilters={clearFilters}/>
