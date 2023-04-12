@@ -13,7 +13,7 @@ interface PerPageOptions {
 export const usePaginatedGallery = (
     cardContainerId: string,
     usingGallery: boolean,
-    perPageOptions: PerPageOptions
+    {setPage, setPerPage, perPage, setAvailablePerPage, defaultAvailablePerPage}: PerPageOptions
 ): void => {
     const { width: windowSizeWidth, height: windowSizeHeight } = useWindowSize();
     const [debouncedSize, setDebouncedSize] = useState<[number, number]>([windowSizeWidth , windowSizeHeight]);
@@ -40,12 +40,12 @@ export const usePaginatedGallery = (
     // Updates the available elements if the elements per row is different
     useEffect(() => {
         if (elementsPerRow) {
-            const availablePerPage = perPageOptions.defaultAvailablePerPage.map(size => {
+            const availablePerPage = defaultAvailablePerPage.map(size => {
                 return Math.ceil(size / elementsPerRow) * elementsPerRow;
             });
 
-            perPageOptions.setAvailablePerPage(availablePerPage);
-            perPageOptions.setPerPage(prev => {
+            setAvailablePerPage(availablePerPage);
+            setPerPage(prev => {
                 if (availablePerPage.includes(prev)) {
                     return prev;
                 }
@@ -53,5 +53,13 @@ export const usePaginatedGallery = (
                 return availablePerPage[0];
             });
         }
-    }, [elementsPerRow]);
+    }, [elementsPerRow, setAvailablePerPage, setPerPage, defaultAvailablePerPage]);
+
+    // Updates current page
+    useEffect(() => {
+        if (usingGallery && gallery && gallery.children.length > 0) {
+            const lastPage = Math.floor(gallery.childElementCount / (perPage)) + 1;
+            setPage(prev => Math.min(prev, lastPage));
+        }
+    }, [perPage, setPage, gallery, usingGallery]);
 };

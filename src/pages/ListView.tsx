@@ -6,12 +6,11 @@ import {useNavigate} from "react-router";
 import {Tag, Tags} from "../components/Tags";
 
 interface ListViewProps {
-    id: string;
     elements: ReadonlyArray<APIConfiguration>;
     isHidden?: boolean
 }
 
-export const ListView: FunctionComponent<ListViewProps> = ({id, elements}) => {
+export const ListView: FunctionComponent<ListViewProps> = ({elements}) => {
   const navigate = useNavigate();
   return (
       <Fragment>

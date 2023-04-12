@@ -1,4 +1,4 @@
-import {CSSProperties, FunctionComponent, useEffect, useMemo, useState} from 'react';
+import {FunctionComponent, useEffect, useMemo, useState} from 'react';
 import {
   Flex, FlexItem,
   Form,
@@ -147,7 +147,7 @@ export const LandingPage: FunctionComponent = () => {
           <PageSection className="apid-c-page__main-section-gallery" isFilled={true}>
           { view === 'grid'
             ? <GridContent galleryId={galleryId} allItems={filteredDocs} items={pagination.items} clearFilters={clearFilters}/>
-            : <ListContent galleryId={galleryId} items={pagination.items} clearFilters={clearFilters}/>
+            : <ListContent items={pagination.items} clearFilters={clearFilters}/>
           }
           </PageSection>
 
