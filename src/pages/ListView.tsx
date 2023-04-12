@@ -20,7 +20,7 @@ export const ListView: FunctionComponent<ListViewProps> = ({id, elements}) => {
                 <Td modifier="fitContent">
                   <Flex>
                     <FlexItem >
-                      <Button variant="link" onClick={() => navigate(pages.getApiPage(apiConfig.id))}>
+                      <Button isInline variant="link" onClick={() => navigate(pages.getApiPage(apiConfig.id))}>
                         {apiConfig.displayName}
                       </Button>
                     </FlexItem>
