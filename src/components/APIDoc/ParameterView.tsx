@@ -1,6 +1,6 @@
 import React from "react"
 import { OpenAPIV3 } from 'openapi-types';
-import { Text, TextContent, TextVariants } from '@patternfly/react-core';
+import {Flex, FlexItem, Text, TextContent, TextVariants} from '@patternfly/react-core';
 import { TableComposable, Tbody, Td, Thead, Tr } from "@patternfly/react-table";
 import { deRef } from "../../utils/Openapi";
 
@@ -21,7 +21,6 @@ export const ParameterView: React.FunctionComponent<ParameterViewProps> = ({titl
                 <Tr>
                 <Td>Name</Td>
                 <Td>Type</Td>
-                <Td>Required</Td>
                 <Td>Description</Td>
                 </Tr>
             </Thead>
@@ -29,8 +28,16 @@ export const ParameterView: React.FunctionComponent<ParameterViewProps> = ({titl
                 {parameters.map(((p, index) => (
                 <Tr key={index}>
                     <Td>{p.name}</Td>
-                    <Td>{getType(p.schema, document)}</Td>
-                    <Td>{p.required ? 'Yes' : 'No'}</Td>
+                    <Td>
+                        <Flex>
+                            <FlexItem className="pf-u-mr-xs">
+                                <Text component={TextVariants.p}>{getType(p.schema, document)}</Text>
+                            </FlexItem>
+                            <FlexItem>
+                                <Text component={TextVariants.p} className="pf-u-danger-color-100">{p.required && "*"}</Text>
+                            </FlexItem>
+                        </Flex>
+                    </Td>
                     <Td>{p.description}</Td>
                 </Tr>
                 )))}
