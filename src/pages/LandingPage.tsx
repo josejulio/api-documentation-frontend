@@ -4,8 +4,8 @@ import {
   Form,
   Page,
   PageSection,
-  PageSectionVariants, 
-  Pagination, 
+  PageSectionVariants,
+  Pagination,
   PaginationProps,
   Sidebar,
   SidebarContent,
@@ -98,7 +98,7 @@ export const LandingPage: FunctionComponent = () => {
 
   return <>
     <Helmet>
-      <title>API Docs</title>
+      <title>Home | API Catalog and Documentation</title>
       <meta name="description" content="Displays API Documentation in a single page" />
     </Helmet>
     <Page className="apid-c-page-landingpage pf-u-background-color-100">

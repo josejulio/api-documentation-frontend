@@ -66,7 +66,7 @@ export const APIPage: FunctionComponent = () => {
 
     return <>
         <Helmet>
-            <title>{selectedApi.displayName} - API Docs</title>
+            <title>{selectedApi.displayName} | API Catalog and Documentation</title>
             <meta name="rhd:node-type" content="api_docs" />
             <meta name="description" content={selectedApi.description} />
             { taxonomyData.map(t => (
