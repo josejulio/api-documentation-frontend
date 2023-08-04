@@ -94,7 +94,7 @@ export const APIPage: FunctionComponent = () => {
             <SidebarContent>
               { (apiState.isLoading || !openapi || groupedOperations.loading) ?
                   <Bullseye><Spinner /></Bullseye> :
-                  <ApiDoc openapi={openapi} groupedOperations={groupedOperations.value} /> }
+                  <ApiDoc apiContent={apiState.api} groupedOperations={groupedOperations.value} /> }
             </SidebarContent>
           </Sidebar>
         </Page>
