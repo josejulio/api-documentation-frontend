@@ -5,7 +5,7 @@ import {PageSection, PageSectionVariants, Text, TextContent, TextVariants} from 
 interface DocumentContentProps {
     from: Record<string, string>;
     name: string;
-    title: string;
+    title?: string;
 }
 
 export const DocumentContent: FunctionComponent<DocumentContentProps> = ({from, name, title}) => {
@@ -15,9 +15,9 @@ export const DocumentContent: FunctionComponent<DocumentContentProps> = ({from, 
 
     return <PageSection variant={PageSectionVariants.light} className="pf-u-px-xl-on-md">
         <TextContent>
-            <Text component={TextVariants.h1}>
+            { title && <Text component={TextVariants.h1}>
                 {title}
-            </Text>
+            </Text> }
             <ReactMarkdown>
                 {from[name]}
             </ReactMarkdown>

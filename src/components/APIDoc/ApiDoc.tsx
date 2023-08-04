@@ -8,7 +8,7 @@ import {GroupedOperations} from "./hooks/useGroupedOperations";
 import {renderGroupOperations} from "./Operations/renderGroupedOperations";
 import {getAuthenticationId, getOperationId, getSchemasId} from "../../utils/OpenapiHtmlIds";
 import {getTitleWithVersion} from "../../utils/OpenapiSelectors";
-import {APIContent} from "@apidocs/common";
+import {APIContent, ExtraAPIContent} from "@apidocs/common";
 import {DocumentContent} from "../DocumentContent/DocumentContent";
 
 interface ApiDocProps {
@@ -37,7 +37,7 @@ export const ApiDoc: FunctionComponent<ApiDocProps> = props => {
           <ServerList servers={openapi.servers}/>
         )}
       </PageSection>
-          <DocumentContent from={apiContent.extras} name={'getting_started'} title="Getting started"/>
+      <DocumentContent from={apiContent.extras} name={ExtraAPIContent.GETTING_STARTED} title="Getting started"/>
       { openapi.components?.securitySchemes && (
         <PageSection variant={PageSectionVariants.light} className="pf-u-px-xl-on-md">
           <div className="pf-u-pb-lg" id={getAuthenticationId()}>
