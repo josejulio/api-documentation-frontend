@@ -7,11 +7,12 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "react-app-rewired build",
+    "build": "npm run clean && react-app-rewired build",
     "eject": "react-app-rewired eject",
-    "start": "npm run clean --workspaces --if-present && react-app-rewired start",
+    "start": "npm run clean && react-app-rewired start",
     "spandx": "spandx",
     "test": "npm exec jest --src discovery",
+    "clean": "npm run clean --workspaces --if-present",
     "discovery": "npm-run-all discovery:build discovery:start",
     "discovery:build": "npm run --workspace packages/common --workspace packages/transform build",
     "discovery:start": "npm run --workspace packages/transform start -- --input-dir `npm prefix`/packages/discovery -o `npm prefix`/packages/common/config",
