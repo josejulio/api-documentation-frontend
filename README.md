@@ -107,7 +107,7 @@ and has a specific place on the API catalog.
 The content is rendered in the API catalog using the same look and feel. Here is an example of a 
 [getting started](./examples/getting-started.md) section:
 
-![Getting started sample!](./examples/getting-started.png "Getting started sample")
+![Getting started sample](./examples/getting-started.png?raw=true "Getting started sample")
 
 ### Adding a section
 
