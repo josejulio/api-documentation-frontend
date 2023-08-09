@@ -100,7 +100,7 @@ You can run trigger a local run by building the site `npm run build` and then ru
 
 ## Adding external content
 
-Details from each API is extracted from it's openapi file to show in the API catalog. Sometimes this is not enough.
+Details from each API is extracted from its openapi file to show in the API catalog. Sometimes this is not enough.
 We provide an option to add additional sections. Each section is specified as a [markdown file](https://www.markdownguide.org/basic-syntax/) 
 and has a specific place on the API catalog.
 
