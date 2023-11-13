@@ -9,6 +9,30 @@
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
     <script>
+      // Patches header to include the documentKind in the search form
+      (() => {
+        addEventListener("DOMContentLoaded", () => {
+          const pfeNavigation = document.getElementById("pfe-navigation");
+          if (!pfeNavigation) {
+            return;
+          }
+
+          const foundForms = [... pfeNavigation.getElementsByTagName("form")]
+                  .filter(f => f.action.endsWith("/search"));
+
+          if (foundForms.length > 0) {
+            const form = foundForms[0];
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'documentKind';
+            input.value = 'api_catalog';
+            form.appendChild(input);
+          }
+        });
+      })();
+    </script>
+
+    <script>
       if ("%REACT_APP_PENDO_ENABLED%" === "true") {
         (function(apiKey){
           (function(p,e,n,d,o){var v,w,x,y,z;o=p[d]=p[d]||{};o._q=o._q||[];
