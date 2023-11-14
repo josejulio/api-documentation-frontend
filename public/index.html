@@ -31,7 +31,36 @@
         });
       })();
     </script>
+    <script>
+      (function (env) {
+        let scriptSrc;
+        switch (env) {
+          case "production":
+            scriptSrc = "https://www.redhat.com/ma/dpal.js";
+            break;
+          case "staging":
+            scriptSrc = "https://www.redhat.com/ma/dpal-staging.js";
+            break;
+          default:
+            // If the environment isn't production or staging, don't add the scripts
+            return;
+        }
 
+        const dpalHeader = document.createElement('script');
+        dpalHeader.id = 'dpal';
+        dpalHeader.type = 'text/javascript';
+        dpalHeader.src = scriptSrc;
+        document.head.appendChild(dpalHeader);
+
+        const dpalFooter = document.createElement('script');
+        dpalFooter.type = 'text/javascript';
+        dpalFooter.innerHTML = `
+          if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+            _satellite.pageBottom();
+          }`;
+        document.addEventListener("DOMContentLoaded", () => document.body.appendChild(dpalFooter));
+      }("%REACT_APP_ENV%"));
+    </script>
     <script>
       if ("%REACT_APP_PENDO_ENABLED%" === "true") {
         (function(apiKey){
