@@ -1523,7 +1523,7 @@
     },
     "info": {
       "description": "This is the API for Cloud Services for RHEL Compliance. You can find out more about Red Hat Cloud Services for RHEL at [https://console.redhat.com/](https://console.redhat.com/)",
-      "title": "Cloud Services for RHEL Compliance API V2",
+      "title": "Cloud Services for RHEL Compliance API v2",
       "version": "v2"
     },
     "openapi": "3.1.0",
