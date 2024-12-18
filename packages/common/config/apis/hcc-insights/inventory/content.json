@@ -2033,12 +2033,32 @@
             "rhel_ai": {
               "description": "Object containing information about RHEL AI",
               "properties": {
+                "amd_gpu_models": {
+                  "description": "Model name of AMD GPUs",
+                  "items": {
+                    "description": "The AMD GPU model",
+                    "example": "Advanced Micro Devices, Inc. [AMD/ATI] Device 0c34, Advanced Micro Devices, Inc. [AMD/ATI] Radeon PRO V320",
+                    "maxLength": 128,
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "intel_gaudi_hpu_models": {
+                  "description": "Model name of Intel Gaudi HPUs",
+                  "items": {
+                    "description": "The Intel Gaudi HPU model",
+                    "example": "Habana Labs Ltd. Device 1020, Habana Labs Ltd. HL-2000 AI Training Accelerator [Gaudi]",
+                    "maxLength": 128,
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
                 "nvidia_gpu_models": {
                   "description": "Model name of Nvidia GPUs in the GPU index order",
                   "items": {
                     "description": "The Nvidia GPU model",
                     "example": "Tesla V100-PCIE-16GB",
-                    "maxLength": 64,
+                    "maxLength": 128,
                     "type": "string"
                   },
                   "type": "array"
