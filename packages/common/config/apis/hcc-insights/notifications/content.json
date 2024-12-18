@@ -448,6 +448,9 @@
             "not_subscription_locked_or_subscribed_by_default": {
               "type": "boolean"
             },
+            "restrict_to_recipients_integrations": {
+              "type": "boolean"
+            },
             "subscribed_by_default": {
               "type": "boolean"
             },
