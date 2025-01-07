@@ -10,6 +10,7 @@ COPY public ./public
 COPY packages ./packages
 
 RUN npm i
+RUN npm run sitemap
 RUN npm run build
 
 FROM registry.access.redhat.com/ubi9/nginx-124
